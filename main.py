@@ -1,13 +1,15 @@
 from selenium import webdriver
 # keys will be used in order to type in text box
 from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 import sys
-
+import time
 
 PATH = "C:/Python39/Scripts/chromedriver.exe"
+driver = webdriver.Chrome(PATH)
+
 
 def listToString(listInput):
     res = ""
@@ -17,18 +19,17 @@ def listToString(listInput):
             res += '\n'
     return res
 
-driver = webdriver.Chrome(PATH)
-print("Insert # if you want to stop. Type the code, that you want to be inputted: ")
 
+print("Insert # if you want to stop. Type the code, that you want to be inputted: ")
 lines = []
 while True:
     text_input = input()
     if text_input.strip() == "#":  # empty line signals stop
         break
     lines.append(text_input)
-   
 
 input_text = listToString(lines)
+   
 
 #driver.get("https://www.offensive-security.com/")
 driver.get("https://pastebin.com/")
@@ -40,7 +41,7 @@ textBox.send_keys(input_text)
 try:
     button_element = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.TAG_NAME, "button")))
     button_element.click()
-    print(driver.current_url)
 finally:
+    time.sleep(5)
+    print(driver.current_url)
     driver.quit()
-
