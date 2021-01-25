@@ -21,17 +21,15 @@ def listToString(listInput):
 
 
 print("Insert # if you want to stop. Type the code, that you want to be inputted: ")
-lines = []
+userLines = []
 while True:
     text_input = input()
-    if text_input.strip() == "#":  # empty line signals stop
+    if text_input.strip() == "#":
         break
-    lines.append(text_input)
+    userLines.append(text_input)
 
-input_text = listToString(lines)
-   
+input_text = listToString(userLines)
 
-#driver.get("https://www.offensive-security.com/")
 driver.get("https://pastebin.com/")
 
 print(driver.title)
@@ -39,7 +37,7 @@ print(driver.title)
 textBox = driver.find_element_by_id("postform-text")
 textBox.send_keys(input_text)
 try:
-    button_element = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.TAG_NAME, "button")))
+    button_element = WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.TAG_NAME, "button")))
     button_element.click()
 finally:
     time.sleep(5)
